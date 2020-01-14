@@ -1,20 +1,21 @@
-import React from './react'
-//renders single product card
+import React from 'react';
 
-export default class PropductListItem extends React.Component{
-  constructor(props){
-    super(props)
-  }
-  render(){
-    return (
-      <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="..."/>
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
+function ProductListItem(props) {
+  const GrabbedProducts = props.products;
+  const priceInt = '$' + parseInt((GrabbedProducts.price) / 100).toFixed(2);
+  return (
+    <div className={'col-sm'}>
+      <div className="card" style={{ width: '18rem' }}>
+        <img src={GrabbedProducts.image} className="card-img-top" alt="..." />
+        <div className="card-body">
+          <h5 className="card-title">{GrabbedProducts.name}</h5>
+          <h6 className="card-text">{priceInt}</h6>
+          <p className="card-text">{GrabbedProducts.shortDescription}</p>
+        </div>
       </div>
-    )
-  }
+      <div className="mt-5" />
+    </div>
+  );
 }
+
+export default ProductListItem;

@@ -2,3 +2,9 @@
   background-color: grey;
   width: 100%;
 }
+
+.card-img-top {
+  object-fit: scale-down;
+  height: 380px;
+  width: 100%;
+}

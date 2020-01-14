@@ -1,11 +1,8 @@
 import React from 'react';
-import Header from './header'
+import Header from './header';
 import ProductList from './Product-List';
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     fetch('/api/health-check')
@@ -17,8 +14,10 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <Header text='$ Wicked Sales' />,
-      <ProductList />
-    )
+      <div>
+        <Header text=' Wicked Sales' />,
+        <ProductList />
+      </div>
+    );
   }
 }
