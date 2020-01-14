@@ -34,13 +34,18 @@ app.get('/api/products', (req, res, next) => {
       const data = result.rows;
       res.status(200).json(data);
     })
-
     .catch(err => next(err));
 });
 
 app.get('/api/products/:productId', (req, res, next) => {
   const productId = parseInt(req.params.productId);
   const values = [productId];
+
+  if (isNaN(productId) || productId < 0) {
+    res.status(400).json({ error: 'Please enter positive number.' });
+    return;
+  }
+
   const text = `
   SELECT *
   FROM "products"
@@ -49,11 +54,15 @@ app.get('/api/products/:productId', (req, res, next) => {
 
   db.query(text, values)
     .then(result => {
-      const data = result.rows;
-      res.status(200).json(data);
+      const data = result.rows[0];
+      if (!data) {
+        res.status(404).json({ error: '404 error' });
+
+      } else {
+        res.status(200).json(data);
+      }
     })
-
-
+    .catch(err => next(err));
 });
 
 app.use('/api', (req, res, next) => {
