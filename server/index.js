@@ -42,7 +42,7 @@ app.get('/api/products/:productId', (req, res, next) => {
   const values = [productId];
 
   if (isNaN(productId) || productId < 0) {
-    res.status(400).json({ error: 'Please enter positive number.' });
+    next(new ClientError(`cannot ${req.method} ${req.originalUrl}. Please enter a positive number`, 400));
     return;
   }
 
@@ -56,8 +56,7 @@ app.get('/api/products/:productId', (req, res, next) => {
     .then(result => {
       const data = result.rows[0];
       if (!data) {
-        res.status(404).json({ error: '404 error' });
-
+        next(new ClientError(`cannot ${req.method} ${req.originalUrl}. Product does not exist`, 404));
       } else {
         res.status(200).json(data);
       }
