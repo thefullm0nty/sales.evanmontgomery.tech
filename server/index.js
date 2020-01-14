@@ -26,7 +26,7 @@ app.get('/api/products', (req, res, next) => {
     "price",
     "image",
     "shortDescription"
-    from "products"
+  from "products"
   `;
 
   db.query(SQL)
@@ -36,6 +36,24 @@ app.get('/api/products', (req, res, next) => {
     })
 
     .catch(err => next(err));
+});
+
+app.get('/api/products/:productId', (req, res, next) => {
+  const productId = parseInt(req.params.productId);
+  const values = [productId];
+  const text = `
+  SELECT *
+  FROM "products"
+  WHERE "productId" = $1
+  `;
+
+  db.query(text, values)
+    .then(result => {
+      const data = result.rows;
+      res.status(200).json(data);
+    })
+
+
 });
 
 app.use('/api', (req, res, next) => {
