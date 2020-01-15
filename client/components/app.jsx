@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './header';
 import ProductList from './Product-List';
+import ProductDetails from './ProductDetails'
 
 export default class App extends React.Component {
 
@@ -15,8 +16,9 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <Header text=' Wicked Sales' />,
-        <ProductList />
+        {/* <Header text=' Wicked Sales' />,
+        <ProductList /> */}
+        <ProductDetails />
       </div>
     );
   }
