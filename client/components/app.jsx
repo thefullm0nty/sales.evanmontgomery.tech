@@ -4,8 +4,8 @@ import ProductList from './Product-List';
 import ProductDetails from './ProductDetails';
 
 export default class App extends React.Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       view: {
         name: 'catalog',
@@ -23,29 +23,30 @@ export default class App extends React.Component {
       .finally(() => this.setState({ isLoading: false }));
   }
 
-  setView(name, params){
-    this.setState({view: {
-      name: name,
-      params: params
-    }
-    })
+  setView(name, params) {
+    this.setState({
+      view: {
+        name: name,
+        params: params
+      }
+    });
   }
 
   render() {
-      if (this.state.view.name === 'catalog'){
-        return (
-          <div>
-            <Header text=' Wicked Sales' />
-            <ProductList setView={this.setView} />
-          </div>
-        )
-      } else {
-        return (
-          <div>
-            <Header text=' Wicked Sales' />,
-            <ProductDetails />
-          </div>
-        )
-      }
+    if (this.state.view.name === 'catalog') {
+      return (
+        <div>
+          <Header text=' Wicked Sales' />
+          <ProductList setView={this.setView} />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <Header text=' Wicked Sales' />,
+          <ProductDetails setView={this.setView} />
+        </div>
+      );
+    }
   }
 }
