@@ -33,20 +33,20 @@ export default class App extends React.Component {
   }
 
   render() {
-    // if (this.state.view.name === 'catalog') {
-    //   return (
-    //     <div>
-    //       <Header text=' Wicked Sales' />
-    //       <ProductList setView={this.setView} />
-    //     </div>
-    //   );
-    // } else {
+    if (this.state.view.name === 'catalog') {
       return (
         <div>
-          <Header text=' Wicked Sales' />,
-          <ProductDetails setView={this.setView} />
+          <Header text=' Wicked Sales' />
+          <ProductList setView={this.setView} />
         </div>
       );
-    // }
+    } else {
+      return (
+        <div>
+          <Header text=' Wicked Sales' />
+          <ProductDetails setView={this.setView} productId={this.state.view.params.productId}/>
+        </div>
+      );
+    }
   }
 }
