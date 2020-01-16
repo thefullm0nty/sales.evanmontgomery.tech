@@ -1,8 +1,19 @@
 import React from 'react';
 import Header from './header';
 import ProductList from './Product-List';
+import ProductDetails from './ProductDetails';
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      view: {
+        name: 'catalog',
+        params: {}
+      }
+    };
+    this.setView = this.setView.bind(this);
+  }
 
   componentDidMount() {
     fetch('/api/health-check')
@@ -12,12 +23,30 @@ export default class App extends React.Component {
       .finally(() => this.setState({ isLoading: false }));
   }
 
+  setView(name, params) {
+    this.setState({
+      view: {
+        name: name,
+        params: params
+      }
+    });
+  }
+
   render() {
-    return (
-      <div>
-        <Header text=' Wicked Sales' />,
-        <ProductList />
-      </div>
-    );
+    if (this.state.view.name === 'catalog') {
+      return (
+        <div>
+          <Header text=' Wicked Sales' />
+          <ProductList setView={this.setView} />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <Header text=' Wicked Sales' />
+          <ProductDetails setView={this.setView} productId={this.state.view.params.productId}/>
+        </div>
+      );
+    }
   }
 }

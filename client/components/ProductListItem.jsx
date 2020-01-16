@@ -3,9 +3,10 @@ import React from 'react';
 function ProductListItem(props) {
   const GrabbedProducts = props.products;
   const priceInt = '$' + parseInt((GrabbedProducts.price) / 100).toFixed(2);
+
   return (
     <div className={'col-sm'}>
-      <div className="card" style={{ width: '18rem' }}>
+      <div className="card" style={{ width: '18rem' }} onClick={() => props.setView('details', { productId: GrabbedProducts.productId })}>
         <img src={GrabbedProducts.image} className="card-img-top" alt="..." />
         <div className="card-body">
           <h5 className="card-title">{GrabbedProducts.name}</h5>
