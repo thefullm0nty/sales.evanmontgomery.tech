@@ -64,7 +64,31 @@ app.get('/api/products/:productId', (req, res, next) => {
     .catch(err => next(err));
 });
 
-app.use('/api', (req, res, next) => {
+app.get('/api/cart', (req, res, next) => {
+  db.query("select 'Cart' as \"message\"")
+    .then(res => res.json([]))
+    .catch(err => next(err));
+});
+
+app.post('/api/cart', (req, res, next) => {
+  const SQL = `
+  insert into "carts" ("cartId", "createdAt")
+  values (default, default)
+  returning "cartId"
+  `
+
+  db.query(SQL)
+    .then(res => {
+      console.log("res.rows: ", res.rows)
+      console.log("req.body: ", req.body)
+      if (res.rows.length === 0){
+        throw (new ClientError(`cannot ${req.method} ${req.originalUrl}`, 400))
+      }
+    })
+    .catch(err => next(err));
+});
+
+app.use('/api/cart', (req, res, next) => {
   next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 404));
 });
 
