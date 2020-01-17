@@ -95,6 +95,7 @@ app.post('/api/cart', (req, res, next) => {
 
   if (!parseInt(productId)) {
     next(new ClientError('Product id must be a number.', 400));
+    return;
   }
 
   const SQLPrice = `
@@ -107,7 +108,7 @@ app.post('/api/cart', (req, res, next) => {
   db.query(SQLPrice, params)
     .then(res => {
       if (res.rows.length === 0) {
-        next(new ClientError(`cannot ${req.method} ${req.originalUrl}`, 400));
+        throw (new ClientError(`cannot ${req.method} ${req.originalUrl}`, 400));
       }
 
       const productPrice = res.rows[0].price;
