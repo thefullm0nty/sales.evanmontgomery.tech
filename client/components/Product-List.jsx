@@ -29,7 +29,6 @@ export default class ProductList extends React.Component {
 
   render() {
     const data = this.state.products;
-    console.log('this.state.products: ', data);
     const dataMap = data.map(productObject => {
       return (
         <ProductListItem
